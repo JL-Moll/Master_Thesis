@@ -1,0 +1,14 @@
+tensorflow2 (preferably 2.1.0-GPU, CUDA version 10.1 and cuDNN version 7)
+keras (version 2.3.2)
+pydot (for plotting models with keras)
+keras-contrib (for Instance Normalization with keras); requires an installation via git as of February 2020
+h5py (in order to save models to files)
+pandas
+numpy
+matplotlib
+scikit-learn
+PIL (a.k.a. Pillow)
+opencv (for conversion of grayscale to RGB images, e.g. the sketches)
+imageio (for creating gifs of the results)
+time (should be installed by default)
+datetime (should be installed by default)
