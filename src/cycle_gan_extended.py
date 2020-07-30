@@ -438,17 +438,17 @@ def define_generator(image_shape=(256,256,3), n_resnet=6, plotName=""):
     for _ in range(n_resnet):
         generator = residual_network_block(256, generator)
         
-    # Upsamplingeneratorlayer with 128 filters -> (?, ?, ?, 128), but it should be approx. (?, 32, 32, 128)
+    # Upsamplingeneratorlayer with 128 filters -> (?, ?, ?, 128), but it should be approx. (?, 128, 128, 128)
     generator = Conv2DTranspose(128, (3,3), strides=(2,2), padding='same', kernel_initializer=init)(generator)
     generator = InstanceNormalization(axis=-1)(generator)
     generator = Activation('relu')(generator)
     
-    # Upsamplingeneratorlayer with 64 filters -> (?, ?, ?, 64), but it should be approx. (?, 16, 16, 64)
+    # Upsamplingeneratorlayer with 64 filters -> (?, ?, ?, 64), but it should be approx. (?, 256, 256, 64)
     generator = Conv2DTranspose(64, (3,3), strides=(2,2), padding='same', kernel_initializer=init)(generator)
     generator = InstanceNormalization(axis=-1)(generator)
     generator = Activation('relu')(generator)
     
-    # 7x7 Convolution-InstanceNorm-ReLU layer with 3 filters and stride 1 -> (?, ?, ?, 3), but it should be approx. (?, 16, 16, 3)
+    # 7x7 Convolution-InstanceNorm-ReLU layer with 3 filters and stride 1 -> (?, ?, ?, 3), but it should be approx. (?, 256, 256, 3)
     generator = Conv2D(3, (7,7), padding='same', kernel_initializer=init)(generator)
     generator = InstanceNormalization(axis=-1)(generator)
     out_image = Activation('tanh')(generator)

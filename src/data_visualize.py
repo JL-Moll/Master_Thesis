@@ -191,28 +191,43 @@ def plot_losses(path, file, save_path) :
     g_y2 = [g_loss[i][1] for i in range(len(g_loss))]
     
     # Plot all losses into individual subplots
-    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, sharex=True, figsize=(12,6))
+    fig, ((ax1, ax2, ax3), (ax4, ax5, ax6)) = plt.subplots(2, 3, sharex=True, figsize=(12,6))
     line1, = ax1.plot(xs, dA_y1, color='r')
-    line2, = ax1.plot(xs, dA_y2, color='b')
+    line2, = ax4.plot(xs, dA_y2, color='b')
     
     ax2.plot(xs, dB_y1, color='r')
-    ax2.plot(xs, dB_y2, color='b')
+    ax5.plot(xs, dB_y2, color='b')
     
     ax3.plot(xs, g_y1, color='r')
-    ax3.plot(xs, g_y2, color='b')
+    ax6.plot(xs, g_y2, color='b')
     
-    ax1.set_ylabel('Loss')
-    ax1.set_xlabel('Training Iteration')
-    ax3.set_xlabel('Training Iteration')
-    ax1.set_title('Discriminator A')
-    ax2.set_title('Discriminator B')
-    ax3.set_title('Generator')
+    #plfont = {'fontname' : 'Palatino Linotype'}
+    
+    ax1.set_ylabel('Loss')#, **plfont)
+    ax4.set_ylabel('Loss')#, **plfont)
+    ax4.set_xlabel('Training Iteration')#, **plfont)
+    ax6.set_xlabel('Training Iteration')#, **plfont)
+    ax1.set_title('Discriminator A')#, **plfont)
+    ax2.set_title('Discriminator B')#, **plfont)
+    ax3.set_title('Generator')#, **plfont)
+    
+    """
+    ax1.set_ylim(ymin=-15, ymax=275)
+    ax2.set_ylim(ymin=-15, ymax=275)
+    ax3.set_ylim(ymin=-15, ymax=275)
+    ax4.set_ylim(ymin=-15, ymax=275)
+    ax5.set_ylim(ymin=-15, ymax=275)
+    ax6.set_ylim(ymin=-15, ymax=275)
+    """
     
     ax1.grid(True)
     ax2.grid(True)
     ax3.grid(True)
+    ax4.grid(True)
+    ax5.grid(True)
+    ax6.grid(True)
     
-    fig.legend((line1, line2), ('Discriminator: Loss on fake images\nGenerator: Loss on sketches', 'Discriminator: Loss on real images\nGenerator: Loss on UIs'), loc='upper center', bbox_to_anchor = [0.5, -0.05], bbox_transform = BlendedGenericTransform(fig.transFigure, ax3.transAxes))
+    fig.legend((line1, line2), ('Discriminator: Loss on fake images\nGenerator: Loss on sketches', 'Discriminator: Loss on real images\nGenerator: Loss on UIs'), loc='lower center', bbox_to_anchor = [0.5, -0.6], bbox_transform = BlendedGenericTransform(fig.transFigure, ax6.transAxes))
     plt.subplots_adjust(bottom = 0.2)
 
     # Save figure
